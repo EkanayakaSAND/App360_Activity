@@ -1,10 +1,25 @@
-namespace App360_Activity
+namespace App360_Activity;
+
+public partial class MainForm : Form
 {
-    public partial class Form1 : Form
+    public MainForm()
     {
-        public Form1()
-        {
-            InitializeComponent();
-        }
+        InitializeComponent();
+
+        SetFormSizeToDisplay();
+    }
+
+
+    private void SetFormSizeToDisplay()
+    {
+        Screen primaryScreen = Screen.PrimaryScreen;
+
+        this.Width = primaryScreen.Bounds.Width;
+        this.Height = primaryScreen.Bounds.Height;
+
+        this.StartPosition = FormStartPosition.CenterScreen;
+
+        headerPanel.Width = primaryScreen.Bounds.Width;
+
     }
 }
