@@ -56,27 +56,29 @@ public partial class MainForm : Form
     }
     private void InitializeProductsDataGridView()
     {
-        productDataGridView.ColumnCount = 4;
+        productDataGridView.ColumnCount = 5;
 
-        productDataGridView.Columns[0].Name = "Name";
-        productDataGridView.Columns[1].Name = "Category";
-        productDataGridView.Columns[2].Name = "Price";
-        productDataGridView.Columns[3].Name = "Quantity";
+        productDataGridView.Columns[0].Name = "Id";
+        productDataGridView.Columns[1].Name = "Name";
+        productDataGridView.Columns[2].Name = "Category";
+        productDataGridView.Columns[3].Name = "Price";
+        productDataGridView.Columns[4].Name = "Quantity";
 
-        SetColumnWidths(new int[] { 55, 20, 15, 10 }, productDataGridView);
+        SetColumnWidths(new int[] {5, 50, 20, 15, 10 }, productDataGridView);
 
         LoadProducts();
     }
 
     private void InitializeCartProductsDataGridView()
     {
-        cartDataGridView.ColumnCount = 3;
+        cartDataGridView.ColumnCount = 4;
 
-        cartDataGridView.Columns[0].Name = "Name"; ;
-        cartDataGridView.Columns[1].Name = "Price";
-        cartDataGridView.Columns[2].Name = "Quantity";
+        cartDataGridView.Columns[0].Name = "Id";
+        cartDataGridView.Columns[1].Name = "Name";
+        cartDataGridView.Columns[2].Name = "Price";
+        cartDataGridView.Columns[3].Name = "Quantity";
 
-        SetColumnWidths(new int[] { 40, 30, 30 }, cartDataGridView);
+        SetColumnWidths(new int[] {5, 40, 30, 25 }, cartDataGridView);
     }
 
     private void LoadProducts()
@@ -85,29 +87,42 @@ public partial class MainForm : Form
         productDataGridView.Rows.Clear();
         foreach (var product in products)
         {
-            productDataGridView.Rows.Add(product.Name, product.Category, product.Price.ToString(), product.Quantity);
+            productDataGridView.Rows.Add(product.Id, product.Name, product.Category, product.Price.ToString(), product.Quantity);
         }
     }
 
-    private void LoadCartProducts(int qty)
+    private void LoadCartProducts()
     {
+        int cartTotal = mainFormController.getTotalCartCount();
+
         var cartProducts = mainFormController.GetCartProducts();
         cartDataGridView.Rows.Clear();
+        subTotal = 0;
 
-        foreach (var product in cartProducts)
+        if(cartTotal == 0)
         {
-
-            subTotal += product.Price*qty;
-
-            cartDataGridView.Rows.Add(product.Name, product.Price.ToString(), product.Quantity);
-
+            subTotal = 0;
+            cartDataGridView.Rows.Clear();
             subTotalText.Text = subTotal.ToString();
         }
+        else
+        {
+            foreach (var product in cartProducts)
+            {
+                subTotal += product.Price * product.Quantity;
+
+                cartDataGridView.Rows.Add(product.Id, product.Name, product.Price.ToString(), product.Quantity);
+
+                subTotalText.Text = subTotal.ToString();
+
+            }
+        }
+        
     }
 
     private void cartAddButton_Click(object sender, EventArgs e)
     {
-        if(productsComboBox.SelectedItem != null)
+        if (productsComboBox.SelectedItem != null)
         {
             Product selectedProduct = (Product)productsComboBox.SelectedItem;
 
@@ -121,7 +136,7 @@ public partial class MainForm : Form
 
                     mainFormController.AddToCart(id, qty);
 
-                    LoadCartProducts(qty);
+                    LoadCartProducts();
 
                     LoadProducts();
                 }
@@ -130,13 +145,41 @@ public partial class MainForm : Form
                     MessageBox.Show("Please Enter Valid Quantity.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
             }
-            catch (Exception ex) {
+            catch (Exception ex)
+            {
                 MessageBox.Show($"Error : {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
         else
         {
             MessageBox.Show("Please Enter Valid Quantity.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+        }
+    }
+
+    private void deleteCartButton_Click(object sender, EventArgs e)
+    {
+        if (cartDataGridView.SelectedRows.Count > 0) {
+
+            DataGridViewRow selectedRow = cartDataGridView.SelectedRows[0];
+
+            string id = Convert.ToString(selectedRow.Cells[0].Value);
+
+            if (id != null) {
+                try
+                {
+                    double reduce = mainFormController.DeleteFromCart(id);
+                    subTotal -= reduce;
+                    LoadCartProducts();
+                    LoadProducts() ;
+                }
+                catch (Exception ex) {
+                    MessageBox.Show($"Error : {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+        else
+        {
+            MessageBox.Show("Select a product to delete.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
         }
     }
 }

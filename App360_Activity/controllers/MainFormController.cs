@@ -41,6 +41,15 @@ public class MainFormController
         return cartProducts;
     }
 
+    public int getTotalProductsCount()
+    {
+        return products.Count;
+    }
+
+    public int getTotalCartCount() {
+        return cartProducts.Count;
+    }
+
     public void AddToCart(string id, int qty)
     {
         var product = products.Find(x => x.Id == id);
@@ -61,6 +70,24 @@ public class MainFormController
         else
         {
             MessageBox.Show("Please Enter Valid Product.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+        }
+    }
+
+    public double DeleteFromCart(string id) {
+
+        var deleteProduct = cartProducts.Find(x => x.Id == id);
+        var product = products.Find(product => product.Id == id);
+
+        if (deleteProduct != null && product != null) {
+            var qty = deleteProduct.Quantity;
+            cartProducts.Remove(deleteProduct);
+            product.Quantity += qty;
+
+            return product.Price*qty;
+        }
+        else
+        {
+            throw new Exception("Invalid product");
         }
     }
 }

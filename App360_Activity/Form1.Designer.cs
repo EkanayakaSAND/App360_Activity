@@ -46,6 +46,7 @@
             discountLabel = new Label();
             totalText = new TextBox();
             totalLabel = new Label();
+            deleteCartButton = new Button();
             headerPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)productDataGridView).BeginInit();
             cartPanel.SuspendLayout();
@@ -87,7 +88,7 @@
             productsComboBox.FormattingEnabled = true;
             productsComboBox.Location = new Point(67, 171);
             productsComboBox.Name = "productsComboBox";
-            productsComboBox.Size = new Size(444, 29);
+            productsComboBox.Size = new Size(347, 29);
             productsComboBox.TabIndex = 2;
             productsComboBox.Text = "- Select the Product -";
             // 
@@ -98,7 +99,7 @@
             cartAddButton.ForeColor = Color.White;
             cartAddButton.Image = (Image)resources.GetObject("cartAddButton.Image");
             cartAddButton.ImageAlign = ContentAlignment.MiddleLeft;
-            cartAddButton.Location = new Point(759, 168);
+            cartAddButton.Location = new Point(647, 168);
             cartAddButton.Name = "cartAddButton";
             cartAddButton.Padding = new Padding(5, 0, 0, 0);
             cartAddButton.Size = new Size(83, 35);
@@ -111,7 +112,7 @@
             // 
             cartQtyLabel.AutoSize = true;
             cartQtyLabel.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            cartQtyLabel.Location = new Point(541, 174);
+            cartQtyLabel.Location = new Point(429, 174);
             cartQtyLabel.Name = "cartQtyLabel";
             cartQtyLabel.Size = new Size(77, 21);
             cartQtyLabel.TabIndex = 4;
@@ -120,7 +121,7 @@
             // qtyText
             // 
             qtyText.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            qtyText.Location = new Point(624, 171);
+            qtyText.Location = new Point(512, 171);
             qtyText.Name = "qtyText";
             qtyText.Size = new Size(100, 29);
             qtyText.TabIndex = 5;
@@ -221,11 +222,27 @@
             totalLabel.TabIndex = 12;
             totalLabel.Text = "Total (Rs.)       :";
             // 
+            // deleteCartButton
+            // 
+            deleteCartButton.BackColor = Color.Red;
+            deleteCartButton.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            deleteCartButton.ForeColor = Color.White;
+            deleteCartButton.ImageAlign = ContentAlignment.MiddleLeft;
+            deleteCartButton.Location = new Point(748, 168);
+            deleteCartButton.Name = "deleteCartButton";
+            deleteCartButton.Padding = new Padding(5, 0, 0, 0);
+            deleteCartButton.Size = new Size(83, 35);
+            deleteCartButton.TabIndex = 14;
+            deleteCartButton.Text = "DELETE";
+            deleteCartButton.UseVisualStyleBackColor = false;
+            deleteCartButton.Click += deleteCartButton_Click;
+            // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1904, 1041);
+            Controls.Add(deleteCartButton);
             Controls.Add(totalText);
             Controls.Add(totalLabel);
             Controls.Add(discountText);
@@ -272,5 +289,6 @@
         private Label discountLabel;
         private TextBox totalText;
         private Label totalLabel;
+        private Button deleteCartButton;
     }
 }
