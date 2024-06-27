@@ -105,6 +105,7 @@
             cartAddButton.TabIndex = 3;
             cartAddButton.Text = "  ADD";
             cartAddButton.UseVisualStyleBackColor = false;
+            cartAddButton.Click += cartAddButton_Click;
             // 
             // cartQtyLabel
             // 
