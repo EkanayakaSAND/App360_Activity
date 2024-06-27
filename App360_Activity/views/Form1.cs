@@ -277,7 +277,7 @@ public partial class MainForm : Form
                 else if (cashText.Text.All(char.IsDigit))
                 {
                     cash = Convert.ToDouble(cashText.Text);
-                    InvoiceFormController controller = new InvoiceFormController(mainFormController.GetCartProducts(), cash);
+                    InvoiceFormController controller = new InvoiceFormController(mainFormController.GetCartProducts(), cash, true);
                     InvoiceForm invoiceForm = new InvoiceForm(controller);
                     invoiceForm.Show();
                 }
@@ -297,7 +297,7 @@ public partial class MainForm : Form
             int productCount = mainFormController.getTotalCartCount();
             if(productCount > 0)
             {
-                InvoiceFormController controller = new InvoiceFormController(mainFormController.GetCartProducts());
+                InvoiceFormController controller = new InvoiceFormController(mainFormController.GetCartProducts(), false);
                 InvoiceForm invoiceForm2 = new InvoiceForm(controller);
                 invoiceForm2.Show();
             }
