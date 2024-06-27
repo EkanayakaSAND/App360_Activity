@@ -267,24 +267,32 @@ public partial class MainForm : Form
 
         if (cashRadioButton.Checked) {
 
-            if (cashText.Text == "")
+            int productCount = mainFormController.getTotalCartCount();
+            if(productCount > 0)
             {
-                MessageBox.Show("Please Enter Valid Cash.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            }
-            else if (cashText.Text.All(char.IsDigit))
-            {
-                cash = Convert.ToDouble(cashText.Text);
-                InvoiceFormController controller = new InvoiceFormController(mainFormController.GetCartProducts(), cash);
-                InvoiceForm invoiceForm = new InvoiceForm(controller);
-                invoiceForm.Show();
+                if (cashText.Text == "")
+                {
+                    MessageBox.Show("Please Enter Valid Cash.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+                else if (cashText.Text.All(char.IsDigit))
+                {
+                    cash = Convert.ToDouble(cashText.Text);
+                    InvoiceFormController controller = new InvoiceFormController(mainFormController.GetCartProducts(), cash);
+                    InvoiceForm invoiceForm = new InvoiceForm(controller);
+                    invoiceForm.Show();
+                }
+                else
+                {
+                    MessageBox.Show("Please Enter Valid Cash.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    totalText.Text = "";
+                }
             }
             else
             {
-                MessageBox.Show("Please Enter Valid Cash.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                totalText.Text = "";
+                MessageBox.Show("Cart can not be empty!", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
 
-            
+
         } else {
             int productCount = mainFormController.getTotalCartCount();
             if(productCount > 0)
@@ -295,10 +303,12 @@ public partial class MainForm : Form
             }
             else
             {
-                MessageBox.Show("Cart con not be empty!", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Cart can not be empty!", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
             
         }
         
     }
+
+
 }
