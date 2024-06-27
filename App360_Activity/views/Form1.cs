@@ -8,6 +8,7 @@ public partial class MainForm : Form
     private MainFormController mainFormController;
     private double subTotal = 0;
     private string paymentMethod;
+    private double cash = 0;
     public MainForm(MainFormController controller)
     {
         InitializeComponent();
@@ -261,4 +262,43 @@ public partial class MainForm : Form
         }
     }
 
+    private void completeOrderButton_Click(object sender, EventArgs e)
+    {
+
+        if (cashRadioButton.Checked) {
+
+            if (cashText.Text == "")
+            {
+                MessageBox.Show("Please Enter Valid Cash.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+            else if (cashText.Text.All(char.IsDigit))
+            {
+                cash = Convert.ToDouble(cashText.Text);
+                InvoiceFormController controller = new InvoiceFormController(mainFormController.GetCartProducts(), cash);
+                InvoiceForm invoiceForm = new InvoiceForm(controller);
+                invoiceForm.Show();
+            }
+            else
+            {
+                MessageBox.Show("Please Enter Valid Cash.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                totalText.Text = "";
+            }
+
+            
+        } else {
+            int productCount = mainFormController.getTotalCartCount();
+            if(productCount > 0)
+            {
+                InvoiceFormController controller = new InvoiceFormController(mainFormController.GetCartProducts());
+                InvoiceForm invoiceForm2 = new InvoiceForm(controller);
+                invoiceForm2.Show();
+            }
+            else
+            {
+                MessageBox.Show("Cart con not be empty!", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+            
+        }
+        
+    }
 }

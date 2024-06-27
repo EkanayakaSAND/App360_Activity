@@ -306,6 +306,7 @@
             completeOrderButton.TabIndex = 17;
             completeOrderButton.Text = "Complete Order";
             completeOrderButton.UseVisualStyleBackColor = true;
+            completeOrderButton.Click += this.completeOrderButton_Click;
             // 
             // clearButton
             // 
@@ -396,8 +397,6 @@
         private TextBox totalText;
         private Label totalLabel;
         private Button deleteCartButton;
-        private TabPage tabPage1;
-        private TabPage tabPage2;
         private RadioButton cashRadioButton;
         private RadioButton cardRadioButton;
         private RadioButton bankRadioButton;
