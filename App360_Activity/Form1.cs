@@ -7,6 +7,7 @@ public partial class MainForm : Form
 {
     private MainFormController mainFormController;
     private double subTotal = 0;
+    private string paymentMethod;
     public MainForm(MainFormController controller)
     {
         InitializeComponent();
@@ -18,6 +19,12 @@ public partial class MainForm : Form
         InitializeCartProductsDataGridView();
 
         discountText.TextAlignChanged += discountText_TextChanged;
+
+        cashRadioButton.Checked = true;
+
+        cashRadioButton.CheckedChanged += radioButton_CheckedChanged;
+        cardRadioButton.CheckedChanged += radioButton_CheckedChanged;
+        bankRadioButton.CheckedChanged += radioButton_CheckedChanged;
     }
 
 
@@ -227,4 +234,31 @@ public partial class MainForm : Form
 
         totalText.Text = total.ToString("0.00");
     }
+
+    private void radioButton_CheckedChanged(object sender, EventArgs e)
+    {
+        RadioButton radioButton = sender as RadioButton;
+        if (radioButton.Checked)
+        {
+            if (radioButton == cashRadioButton)
+            {
+                paymentMethod = "Cash Payment";
+                cashLabel.Visible = true;
+                cashText.Visible = true;
+            }
+            else if (radioButton == cardRadioButton)
+            {
+                paymentMethod = "Card Payment";
+                cashLabel.Visible = false;
+                cashText.Visible = false;
+            }
+            else if (radioButton == bankRadioButton)
+            {
+                paymentMethod = "Bank Transfer";
+                cashLabel.Visible = false;
+                cashText.Visible = false;
+            }
+        }
+    }
+
 }

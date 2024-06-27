@@ -47,10 +47,14 @@
             totalText = new TextBox();
             totalLabel = new Label();
             deleteCartButton = new Button();
-            paymentGroupBox = new GroupBox();
             cashRadioButton = new RadioButton();
             cardRadioButton = new RadioButton();
             bankRadioButton = new RadioButton();
+            paymentGroupBox = new GroupBox();
+            completeOrderButton = new Button();
+            clearButton = new Button();
+            cashText = new TextBox();
+            cashLabel = new Label();
             headerPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)productDataGridView).BeginInit();
             cartPanel.SuspendLayout();
@@ -212,7 +216,7 @@
             // totalText
             // 
             totalText.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            totalText.Location = new Point(690, 909);
+            totalText.Location = new Point(690, 903);
             totalText.Name = "totalText";
             totalText.ReadOnly = true;
             totalText.Size = new Size(152, 29);
@@ -222,7 +226,7 @@
             // 
             totalLabel.AutoSize = true;
             totalLabel.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            totalLabel.Location = new Point(547, 914);
+            totalLabel.Location = new Point(547, 908);
             totalLabel.Name = "totalLabel";
             totalLabel.Size = new Size(112, 21);
             totalLabel.TabIndex = 12;
@@ -243,20 +247,6 @@
             deleteCartButton.UseVisualStyleBackColor = false;
             deleteCartButton.Click += deleteCartButton_Click;
             // 
-            // paymentGroupBox
-            // 
-            paymentGroupBox.BackColor = Color.White;
-            paymentGroupBox.Controls.Add(bankRadioButton);
-            paymentGroupBox.Controls.Add(cardRadioButton);
-            paymentGroupBox.Controls.Add(cashRadioButton);
-            paymentGroupBox.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            paymentGroupBox.Location = new Point(67, 800);
-            paymentGroupBox.Name = "paymentGroupBox";
-            paymentGroupBox.Size = new Size(347, 163);
-            paymentGroupBox.TabIndex = 16;
-            paymentGroupBox.TabStop = false;
-            paymentGroupBox.Text = "Payment Methods : ";
-            // 
             // cashRadioButton
             // 
             cashRadioButton.AutoSize = true;
@@ -273,7 +263,7 @@
             // 
             cardRadioButton.AutoSize = true;
             cardRadioButton.Font = new Font("Arial", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            cardRadioButton.Location = new Point(20, 83);
+            cardRadioButton.Location = new Point(20, 80);
             cardRadioButton.Name = "cardRadioButton";
             cardRadioButton.Size = new Size(61, 22);
             cardRadioButton.TabIndex = 1;
@@ -293,11 +283,68 @@
             bankRadioButton.Text = "Bank Transfer";
             bankRadioButton.UseVisualStyleBackColor = true;
             // 
+            // paymentGroupBox
+            // 
+            paymentGroupBox.BackColor = Color.White;
+            paymentGroupBox.Controls.Add(bankRadioButton);
+            paymentGroupBox.Controls.Add(cardRadioButton);
+            paymentGroupBox.Controls.Add(cashRadioButton);
+            paymentGroupBox.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            paymentGroupBox.Location = new Point(67, 800);
+            paymentGroupBox.Name = "paymentGroupBox";
+            paymentGroupBox.Size = new Size(347, 163);
+            paymentGroupBox.TabIndex = 16;
+            paymentGroupBox.TabStop = false;
+            paymentGroupBox.Text = "Payment Methods : ";
+            // 
+            // completeOrderButton
+            // 
+            completeOrderButton.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            completeOrderButton.Location = new Point(936, 903);
+            completeOrderButton.Name = "completeOrderButton";
+            completeOrderButton.Size = new Size(157, 42);
+            completeOrderButton.TabIndex = 17;
+            completeOrderButton.Text = "Complete Order";
+            completeOrderButton.UseVisualStyleBackColor = true;
+            // 
+            // clearButton
+            // 
+            clearButton.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            clearButton.Location = new Point(936, 843);
+            clearButton.Name = "clearButton";
+            clearButton.Size = new Size(157, 42);
+            clearButton.TabIndex = 18;
+            clearButton.Text = "Clear";
+            clearButton.UseVisualStyleBackColor = true;
+            // 
+            // cashText
+            // 
+            cashText.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            cashText.Location = new Point(690, 954);
+            cashText.Name = "cashText";
+            cashText.Size = new Size(152, 29);
+            cashText.TabIndex = 20;
+            // 
+            // cashLabel
+            // 
+            cashLabel.AutoSize = true;
+            cashLabel.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            cashLabel.Location = new Point(547, 959);
+            cashLabel.Name = "cashLabel";
+            cashLabel.Size = new Size(113, 21);
+            cashLabel.TabIndex = 19;
+            cashLabel.Text = "Cash (Rs.)        :";
+            // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackColor = Color.FromArgb(242, 242, 247);
             ClientSize = new Size(1904, 1041);
+            Controls.Add(cashText);
+            Controls.Add(cashLabel);
+            Controls.Add(clearButton);
+            Controls.Add(completeOrderButton);
             Controls.Add(paymentGroupBox);
             Controls.Add(deleteCartButton);
             Controls.Add(totalText);
@@ -349,9 +396,15 @@
         private TextBox totalText;
         private Label totalLabel;
         private Button deleteCartButton;
-        private GroupBox paymentGroupBox;
-        private RadioButton bankRadioButton;
-        private RadioButton cardRadioButton;
+        private TabPage tabPage1;
+        private TabPage tabPage2;
         private RadioButton cashRadioButton;
+        private RadioButton cardRadioButton;
+        private RadioButton bankRadioButton;
+        private GroupBox paymentGroupBox;
+        private Button completeOrderButton;
+        private Button clearButton;
+        private TextBox cashText;
+        private Label cashLabel;
     }
 }
