@@ -47,10 +47,15 @@
             totalText = new TextBox();
             totalLabel = new Label();
             deleteCartButton = new Button();
+            paymentGroupBox = new GroupBox();
+            cashRadioButton = new RadioButton();
+            cardRadioButton = new RadioButton();
+            bankRadioButton = new RadioButton();
             headerPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)productDataGridView).BeginInit();
             cartPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)cartDataGridView).BeginInit();
+            paymentGroupBox.SuspendLayout();
             SuspendLayout();
             // 
             // headerPanel
@@ -192,6 +197,7 @@
             discountText.Name = "discountText";
             discountText.Size = new Size(152, 29);
             discountText.TabIndex = 11;
+            discountText.TextChanged += discountText_TextChanged;
             // 
             // discountLabel
             // 
@@ -237,11 +243,62 @@
             deleteCartButton.UseVisualStyleBackColor = false;
             deleteCartButton.Click += deleteCartButton_Click;
             // 
+            // paymentGroupBox
+            // 
+            paymentGroupBox.BackColor = Color.White;
+            paymentGroupBox.Controls.Add(bankRadioButton);
+            paymentGroupBox.Controls.Add(cardRadioButton);
+            paymentGroupBox.Controls.Add(cashRadioButton);
+            paymentGroupBox.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            paymentGroupBox.Location = new Point(67, 800);
+            paymentGroupBox.Name = "paymentGroupBox";
+            paymentGroupBox.Size = new Size(347, 163);
+            paymentGroupBox.TabIndex = 16;
+            paymentGroupBox.TabStop = false;
+            paymentGroupBox.Text = "Payment Methods : ";
+            // 
+            // cashRadioButton
+            // 
+            cashRadioButton.AutoSize = true;
+            cashRadioButton.Font = new Font("Arial", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            cashRadioButton.Location = new Point(20, 46);
+            cashRadioButton.Name = "cashRadioButton";
+            cashRadioButton.Size = new Size(63, 22);
+            cashRadioButton.TabIndex = 0;
+            cashRadioButton.TabStop = true;
+            cashRadioButton.Text = "Cash";
+            cashRadioButton.UseVisualStyleBackColor = true;
+            // 
+            // cardRadioButton
+            // 
+            cardRadioButton.AutoSize = true;
+            cardRadioButton.Font = new Font("Arial", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            cardRadioButton.Location = new Point(20, 83);
+            cardRadioButton.Name = "cardRadioButton";
+            cardRadioButton.Size = new Size(61, 22);
+            cardRadioButton.TabIndex = 1;
+            cardRadioButton.TabStop = true;
+            cardRadioButton.Text = "Card";
+            cardRadioButton.UseVisualStyleBackColor = true;
+            // 
+            // bankRadioButton
+            // 
+            bankRadioButton.AutoSize = true;
+            bankRadioButton.Font = new Font("Arial", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            bankRadioButton.Location = new Point(20, 116);
+            bankRadioButton.Name = "bankRadioButton";
+            bankRadioButton.Size = new Size(122, 22);
+            bankRadioButton.TabIndex = 2;
+            bankRadioButton.TabStop = true;
+            bankRadioButton.Text = "Bank Transfer";
+            bankRadioButton.UseVisualStyleBackColor = true;
+            // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1904, 1041);
+            Controls.Add(paymentGroupBox);
             Controls.Add(deleteCartButton);
             Controls.Add(totalText);
             Controls.Add(totalLabel);
@@ -266,6 +323,8 @@
             cartPanel.ResumeLayout(false);
             cartPanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)cartDataGridView).EndInit();
+            paymentGroupBox.ResumeLayout(false);
+            paymentGroupBox.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -290,5 +349,9 @@
         private TextBox totalText;
         private Label totalLabel;
         private Button deleteCartButton;
+        private GroupBox paymentGroupBox;
+        private RadioButton bankRadioButton;
+        private RadioButton cardRadioButton;
+        private RadioButton cashRadioButton;
     }
 }

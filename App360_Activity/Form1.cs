@@ -16,6 +16,8 @@ public partial class MainForm : Form
         InitializeProductsDataGridView();
         InitializeProductComboBox();
         InitializeCartProductsDataGridView();
+
+        discountText.TextAlignChanged += discountText_TextChanged;
     }
 
 
@@ -54,6 +56,7 @@ public partial class MainForm : Form
             dataGridView.Columns[i].Width = (totalWidth * percentages[i]) / 100;
         }
     }
+
     private void InitializeProductsDataGridView()
     {
         productDataGridView.ColumnCount = 5;
@@ -64,7 +67,7 @@ public partial class MainForm : Form
         productDataGridView.Columns[3].Name = "Price";
         productDataGridView.Columns[4].Name = "Quantity";
 
-        SetColumnWidths(new int[] {5, 50, 20, 15, 10 }, productDataGridView);
+        SetColumnWidths(new int[] { 5, 50, 20, 15, 10 }, productDataGridView);
 
         LoadProducts();
     }
@@ -78,7 +81,7 @@ public partial class MainForm : Form
         cartDataGridView.Columns[2].Name = "Price";
         cartDataGridView.Columns[3].Name = "Quantity";
 
-        SetColumnWidths(new int[] {5, 40, 30, 25 }, cartDataGridView);
+        SetColumnWidths(new int[] { 5, 40, 30, 25 }, cartDataGridView);
     }
 
     private void LoadProducts()
@@ -99,7 +102,7 @@ public partial class MainForm : Form
         cartDataGridView.Rows.Clear();
         subTotal = 0;
 
-        if(cartTotal == 0)
+        if (cartTotal == 0)
         {
             subTotal = 0;
             cartDataGridView.Rows.Clear();
@@ -117,7 +120,7 @@ public partial class MainForm : Form
 
             }
         }
-        
+
     }
 
     private void cartAddButton_Click(object sender, EventArgs e)
@@ -158,21 +161,24 @@ public partial class MainForm : Form
 
     private void deleteCartButton_Click(object sender, EventArgs e)
     {
-        if (cartDataGridView.SelectedRows.Count > 0) {
+        if (cartDataGridView.SelectedRows.Count > 0)
+        {
 
             DataGridViewRow selectedRow = cartDataGridView.SelectedRows[0];
 
             string id = Convert.ToString(selectedRow.Cells[0].Value);
 
-            if (id != null) {
+            if (id != null)
+            {
                 try
                 {
                     double reduce = mainFormController.DeleteFromCart(id);
                     subTotal -= reduce;
                     LoadCartProducts();
-                    LoadProducts() ;
+                    LoadProducts();
                 }
-                catch (Exception ex) {
+                catch (Exception ex)
+                {
                     MessageBox.Show($"Error : {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
@@ -181,5 +187,44 @@ public partial class MainForm : Form
         {
             MessageBox.Show("Select a product to delete.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
         }
+    }
+
+    private void discountText_TextChanged(object sender, EventArgs e)
+    {
+        if (discountText.Text == "")
+        {
+            totalText.Text = subTotal.ToString();
+
+        }
+        else if (discountText.Text.All(char.IsDigit))
+        {
+
+            double discount = Convert.ToDouble(discountText.Text);
+
+            if (discount < 100)
+            {
+                AddDiscount();
+            }
+            else
+            {
+                MessageBox.Show("Please Enter Valid Discount.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+
+        }
+        else
+        {
+
+            MessageBox.Show("Please Enter Valid Discount.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            totalText.Text = "";
+        }
+    }
+
+    private void AddDiscount()
+    {
+        double discount = Convert.ToDouble(discountText.Text);
+
+        double total = subTotal - subTotal * (discount / 100);
+
+        totalText.Text = total.ToString("0.00");
     }
 }
