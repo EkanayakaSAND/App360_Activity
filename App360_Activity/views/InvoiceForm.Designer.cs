@@ -30,6 +30,8 @@
         {
             productsDataGridView = new DataGridView();
             produtsDetailPanel = new Panel();
+            subTotalText = new TextBox();
+            subTotalLabel = new Label();
             discountText = new TextBox();
             discountLabel = new Label();
             balanceText = new TextBox();
@@ -38,8 +40,7 @@
             totalLabel = new Label();
             okButton = new Button();
             cancelButton = new Button();
-            subTotalText = new TextBox();
-            subTotalLabel = new Label();
+            panel1 = new Panel();
             ((System.ComponentModel.ISupportInitialize)productsDataGridView).BeginInit();
             produtsDetailPanel.SuspendLayout();
             SuspendLayout();
@@ -55,7 +56,6 @@
             // 
             // produtsDetailPanel
             // 
-            produtsDetailPanel.BackColor = Color.White;
             produtsDetailPanel.Controls.Add(subTotalText);
             produtsDetailPanel.Controls.Add(subTotalLabel);
             produtsDetailPanel.Controls.Add(discountText);
@@ -65,10 +65,29 @@
             produtsDetailPanel.Controls.Add(totalText);
             produtsDetailPanel.Controls.Add(totalLabel);
             produtsDetailPanel.Controls.Add(productsDataGridView);
-            produtsDetailPanel.Location = new Point(38, 81);
+            produtsDetailPanel.Location = new Point(38, 101);
             produtsDetailPanel.Name = "produtsDetailPanel";
             produtsDetailPanel.Size = new Size(516, 703);
             produtsDetailPanel.TabIndex = 1;
+            // 
+            // subTotalText
+            // 
+            subTotalText.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            subTotalText.Location = new Point(382, 490);
+            subTotalText.Name = "subTotalText";
+            subTotalText.ReadOnly = true;
+            subTotalText.Size = new Size(108, 29);
+            subTotalText.TabIndex = 8;
+            // 
+            // subTotalLabel
+            // 
+            subTotalLabel.AutoSize = true;
+            subTotalLabel.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            subTotalLabel.Location = new Point(266, 493);
+            subTotalLabel.Name = "subTotalLabel";
+            subTotalLabel.Size = new Size(107, 21);
+            subTotalLabel.TabIndex = 7;
+            subTotalLabel.Text = "Sub Total (Rs.)";
             // 
             // discountText
             // 
@@ -130,47 +149,39 @@
             // okButton
             // 
             okButton.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            okButton.Location = new Point(479, 810);
+            okButton.Location = new Point(479, 820);
             okButton.Name = "okButton";
             okButton.Size = new Size(75, 33);
             okButton.TabIndex = 2;
             okButton.Text = "Ok";
             okButton.UseVisualStyleBackColor = true;
+            okButton.Click += okButton_Click;
             // 
             // cancelButton
             // 
             cancelButton.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            cancelButton.Location = new Point(384, 810);
+            cancelButton.Location = new Point(384, 820);
             cancelButton.Name = "cancelButton";
             cancelButton.Size = new Size(75, 33);
             cancelButton.TabIndex = 3;
             cancelButton.Text = "Cancel";
             cancelButton.UseVisualStyleBackColor = true;
+            cancelButton.Click += cancelButton_Click;
             // 
-            // subTotalText
+            // panel1
             // 
-            subTotalText.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            subTotalText.Location = new Point(382, 490);
-            subTotalText.Name = "subTotalText";
-            subTotalText.ReadOnly = true;
-            subTotalText.Size = new Size(108, 29);
-            subTotalText.TabIndex = 8;
-            // 
-            // subTotalLabel
-            // 
-            subTotalLabel.AutoSize = true;
-            subTotalLabel.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            subTotalLabel.Location = new Point(266, 493);
-            subTotalLabel.Name = "subTotalLabel";
-            subTotalLabel.Size = new Size(107, 21);
-            subTotalLabel.TabIndex = 7;
-            subTotalLabel.Text = "Sub Total (Rs.)";
+            panel1.BackColor = Color.Navy;
+            panel1.Location = new Point(1, 0);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(592, 63);
+            panel1.TabIndex = 4;
             // 
             // InvoiceForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(594, 867);
+            Controls.Add(panel1);
             Controls.Add(cancelButton);
             Controls.Add(okButton);
             Controls.Add(produtsDetailPanel);
@@ -197,5 +208,6 @@
         private Label discountLabel;
         private TextBox subTotalText;
         private Label subTotalLabel;
+        private Panel panel1;
     }
 }

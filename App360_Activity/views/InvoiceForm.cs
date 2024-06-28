@@ -55,18 +55,20 @@ namespace App360_Activity
         {
             var products = invoiceFormController.GetCartProducts();
             productsDataGridView.Rows.Clear();
-            foreach (var product in products) { 
-                productsDataGridView.Rows.Add(product.Name, product.Price.ToString(), product.Quantity, product.Price*product.Quantity);
+            foreach (var product in products)
+            {
+                productsDataGridView.Rows.Add(product.Name, product.Price.ToString(), product.Quantity, product.Price * product.Quantity);
             }
 
             subTotalText.Text = invoiceFormController.GetTotal().ToString();
             discountText.Text = invoiceFormController.GetDiscount().ToString();
-            double total = invoiceFormController.GetTotal() - invoiceFormController.GetTotal()*(invoiceFormController.GetDiscount()/100);
+            double total = invoiceFormController.GetTotal() - invoiceFormController.GetTotal() * (invoiceFormController.GetDiscount() / 100);
             totalText.Text = total.ToString();
 
             bool isCash = invoiceFormController.IsCash();
 
-            if (isCash) {
+            if (isCash)
+            {
                 double balance = invoiceFormController.GetCash() - total;
                 balanceLabel.Visible = true;
                 balanceText.Visible = true;
@@ -78,6 +80,16 @@ namespace App360_Activity
                 balanceLabel.Visible = false;
                 balanceText.Visible = false;
             }
+        }
+
+        private void okButton_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void cancelButton_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

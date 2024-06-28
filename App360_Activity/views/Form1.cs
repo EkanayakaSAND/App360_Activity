@@ -1,5 +1,6 @@
 using App360_Activity.controllers;
 using App360_Activity.models;
+using System.Windows.Forms;
 
 namespace App360_Activity;
 
@@ -12,11 +13,20 @@ public partial class MainForm : Form
     private double total = 0;
     private double discount = 0;
 
+    private System.Windows.Forms.Timer timer;
+
     public MainForm(MainFormController controller)
     {
         InitializeComponent();
         this.mainFormController = controller;
         SetFormSizeToDisplay();
+
+        timer = new System.Windows.Forms.Timer();
+        timer.Interval = 1000;
+        timer.Tick += Timer_Tick;
+
+        timer.Start();
+        UpdateDate();
 
         InitializeProductsDataGridView();
         InitializeProductComboBox();
@@ -30,7 +40,15 @@ public partial class MainForm : Form
         cardRadioButton.CheckedChanged += radioButton_CheckedChanged;
         bankRadioButton.CheckedChanged += radioButton_CheckedChanged;
     }
+    private void Timer_Tick(object sender, EventArgs e)
+    {
+        timeLabel.Text = DateTime.Now.ToString("HH:mm:ss");
+    }
 
+    private void UpdateDate()
+    {
+        dateLabel.Text = DateTime.Now.ToString("D");
+    }
 
     private void SetFormSizeToDisplay()
     {
@@ -72,6 +90,9 @@ public partial class MainForm : Form
     {
         productDataGridView.ColumnCount = 5;
 
+        productDataGridView.DefaultCellStyle.Font = new Font("Arial", 12);
+        productDataGridView.ColumnHeadersDefaultCellStyle.Font = new Font("Arial", 12, FontStyle.Bold);
+
         productDataGridView.Columns[0].Name = "Id";
         productDataGridView.Columns[1].Name = "Name";
         productDataGridView.Columns[2].Name = "Category";
@@ -85,6 +106,9 @@ public partial class MainForm : Form
 
     private void InitializeCartProductsDataGridView()
     {
+        cartDataGridView.DefaultCellStyle.Font = new Font("Arial", 12);
+        cartDataGridView.ColumnHeadersDefaultCellStyle.Font = new Font("Arial", 12, FontStyle.Bold);
+
         cartDataGridView.ColumnCount = 4;
 
         cartDataGridView.Columns[0].Name = "Id";
@@ -269,10 +293,11 @@ public partial class MainForm : Form
     private void completeOrderButton_Click(object sender, EventArgs e)
     {
 
-        if (cashRadioButton.Checked) {
+        if (cashRadioButton.Checked)
+        {
 
             int productCount = mainFormController.getTotalCartCount();
-            if(productCount > 0)
+            if (productCount > 0)
             {
                 if (cashText.Text == "")
                 {
@@ -281,7 +306,7 @@ public partial class MainForm : Form
                 else if (cashText.Text.All(char.IsDigit))
                 {
                     cash = Convert.ToDouble(cashText.Text);
-                    InvoiceFormController controller = new InvoiceFormController(mainFormController.GetCartProducts(),subTotal,discount, cash, true);
+                    InvoiceFormController controller = new InvoiceFormController(mainFormController.GetCartProducts(), subTotal, discount, cash, true);
                     InvoiceForm invoiceForm = new InvoiceForm(controller);
                     invoiceForm.Show();
                 }
@@ -297,11 +322,13 @@ public partial class MainForm : Form
             }
 
 
-        } else {
+        }
+        else
+        {
             int productCount = mainFormController.getTotalCartCount();
-            if(productCount > 0)
+            if (productCount > 0)
             {
-                InvoiceFormController controller = new InvoiceFormController(mainFormController.GetCartProducts(),subTotal,discount, false);
+                InvoiceFormController controller = new InvoiceFormController(mainFormController.GetCartProducts(), subTotal, discount, false);
                 InvoiceForm invoiceForm2 = new InvoiceForm(controller);
                 invoiceForm2.Show();
             }
@@ -309,10 +336,14 @@ public partial class MainForm : Form
             {
                 MessageBox.Show("Cart can not be empty!", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
-            
+
         }
-        
+
     }
 
+    private void clearButton_Click(object sender, EventArgs e)
+    {
+
+    }
 
 }
