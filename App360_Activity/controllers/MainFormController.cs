@@ -90,4 +90,20 @@ public class MainFormController
             throw new Exception("Invalid product");
         }
     }
+
+    public void DeleteCart()
+    {
+            foreach (var product in cartProducts)
+            {
+                string id = product.Id;
+                Product updateProduct = products.FirstOrDefault(x => x.Id == id);
+
+                if (updateProduct != null)
+                {
+                    updateProduct.Quantity += product.Quantity;
+                }
+            }
+            cartProducts.Clear();
+        
+    }
 }

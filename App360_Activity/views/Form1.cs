@@ -343,7 +343,17 @@ public partial class MainForm : Form
 
     private void clearButton_Click(object sender, EventArgs e)
     {
-
+        mainFormController.DeleteCart();
+        LoadCartProducts();
+        LoadProducts();
+        total = 0;
+        totalText.Text = string.Empty;
+        discount = 0;
+        discountText.Text = string.Empty;
+        subTotal = 0;
+        subTotalText.Text = string.Empty;
+        cash = 0;
+        cashText.Text = string.Empty;
     }
 
 }
