@@ -9,6 +9,9 @@ public partial class MainForm : Form
     private double subTotal = 0;
     private string paymentMethod;
     private double cash = 0;
+    private double total = 0;
+    private double discount = 0;
+
     public MainForm(MainFormController controller)
     {
         InitializeComponent();
@@ -229,9 +232,10 @@ public partial class MainForm : Form
 
     private void AddDiscount()
     {
-        double discount = Convert.ToDouble(discountText.Text);
+        //total = 0;
+        discount = Convert.ToDouble(discountText.Text);
 
-        double total = subTotal - subTotal * (discount / 100);
+        total = subTotal - subTotal * (discount / 100);
 
         totalText.Text = total.ToString("0.00");
     }
@@ -277,7 +281,7 @@ public partial class MainForm : Form
                 else if (cashText.Text.All(char.IsDigit))
                 {
                     cash = Convert.ToDouble(cashText.Text);
-                    InvoiceFormController controller = new InvoiceFormController(mainFormController.GetCartProducts(), cash, true);
+                    InvoiceFormController controller = new InvoiceFormController(mainFormController.GetCartProducts(),subTotal,discount, cash, true);
                     InvoiceForm invoiceForm = new InvoiceForm(controller);
                     invoiceForm.Show();
                 }
@@ -297,7 +301,7 @@ public partial class MainForm : Form
             int productCount = mainFormController.getTotalCartCount();
             if(productCount > 0)
             {
-                InvoiceFormController controller = new InvoiceFormController(mainFormController.GetCartProducts(), false);
+                InvoiceFormController controller = new InvoiceFormController(mainFormController.GetCartProducts(),subTotal,discount, false);
                 InvoiceForm invoiceForm2 = new InvoiceForm(controller);
                 invoiceForm2.Show();
             }
