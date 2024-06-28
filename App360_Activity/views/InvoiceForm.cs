@@ -94,6 +94,7 @@ public partial class InvoiceForm : Form
     private void okButton_Click(object sender, EventArgs e)
     {
         MessageBox.Show("Order Places Successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        invoiceFormController.DeleteCart();
         this.Close();
     }
 

@@ -306,9 +306,20 @@ public partial class MainForm : Form
                 else if (cashText.Text.All(char.IsDigit))
                 {
                     cash = Convert.ToDouble(cashText.Text);
-                    InvoiceFormController controller = new InvoiceFormController(mainFormController.GetCartProducts(), subTotal, discount, cash, true);
-                    InvoiceForm invoiceForm = new InvoiceForm(controller);
-                    invoiceForm.Show();
+                    
+
+                    if(cash >= total)
+                    {
+                        InvoiceFormController controller = new InvoiceFormController(mainFormController,mainFormController.GetCartProducts(), subTotal, discount, cash, true);
+                        InvoiceForm invoiceForm = new InvoiceForm(controller);
+                        invoiceForm.ShowDialog();
+                        LoadCartProducts();
+                        LoadProducts();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Cash is not Enough.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
                 }
                 else
                 {
@@ -328,9 +339,11 @@ public partial class MainForm : Form
             int productCount = mainFormController.getTotalCartCount();
             if (productCount > 0)
             {
-                InvoiceFormController controller = new InvoiceFormController(mainFormController.GetCartProducts(), subTotal, discount, false);
+                InvoiceFormController controller = new InvoiceFormController(mainFormController,mainFormController.GetCartProducts(), subTotal, discount, false);
                 InvoiceForm invoiceForm2 = new InvoiceForm(controller);
-                invoiceForm2.Show();
+                invoiceForm2.ShowDialog();
+                LoadCartProducts();
+                LoadProducts();
             }
             else
             {
@@ -343,7 +356,7 @@ public partial class MainForm : Form
 
     private void clearButton_Click(object sender, EventArgs e)
     {
-        mainFormController.DeleteCart();
+        mainFormController.DeleteCart(false);
         LoadCartProducts();
         LoadProducts();
         total = 0;

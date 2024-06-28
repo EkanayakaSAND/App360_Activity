@@ -25,11 +25,11 @@ public class MainFormController
     private void AddProducts()
     {
         products = new List<Product> {
-            new Product { Id = "1", Name = "Product A", Category = "Smartphone", Price = 70000.00, Quantity = 8 },
-            new Product { Id = "2", Name = "Product B", Category = "Accessories", Price = 3000.00, Quantity = 20 },
-            new Product { Id = "3", Name = "Product C", Category = "Accessories", Price = 1590.00, Quantity = 30 },
-            new Product { Id = "4", Name = "Product D", Category = "Smartphone", Price = 120000.00, Quantity = 3 },
-            new Product { Id = "5", Name = "Product E", Category = "Smartphone", Price = 590000.00, Quantity = 2 },
+            new Product { Id = "1", Name = "Apple iPhone 11 64GB", Category = "Smartphone", Price = 140500.00, Quantity = 8 },
+            new Product { Id = "2", Name = "CMF By Nothing Neckband Pro", Category = "Accessories", Price = 15900.00, Quantity = 20 },
+            new Product { Id = "3", Name = "Samsung Galaxy S24 Plus Case", Category = "Accessories", Price = 5100.00, Quantity = 30 },
+            new Product { Id = "4", Name = "Apple iPhone 15 Pro Max", Category = "Smartphone", Price = 590000.00, Quantity = 3 },
+            new Product { Id = "5", Name = "Samsung Galaxy A25 5G", Category = "Smartphone", Price = 79000.00, Quantity = 6 },
         };
     }
 
@@ -91,8 +91,14 @@ public class MainFormController
         }
     }
 
-    public void DeleteCart()
+    public void DeleteCart(bool isSuccess)
     {
+        if (isSuccess)
+        {
+            cartProducts.Clear();
+        }
+        else
+        {
             foreach (var product in cartProducts)
             {
                 string id = product.Id;
@@ -104,6 +110,6 @@ public class MainFormController
                 }
             }
             cartProducts.Clear();
-        
+        }
     }
 }
